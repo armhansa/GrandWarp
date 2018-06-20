@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GrandWarp</string>
+    <string name="wait_a_minutes">Wait a minute…</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Main</string>
+    <string name="tab_text_2">Favorite</string>
+    <string name="tab_text_3">UpdateShop</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="nothing">Nothings Please Update again.</string>
 </resources>
