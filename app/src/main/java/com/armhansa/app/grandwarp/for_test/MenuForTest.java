@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.armhansa.app.grandwarp.R;
-import com.armhansa.app.grandwarp.ui.Main2Activity;
+import com.armhansa.app.grandwarp.ui.MainActivity;
 import com.armhansa.app.grandwarp.ui.TestMessageActivity;
 
 public class MenuForTest extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class MenuForTest extends AppCompatActivity {
     }
 
     public void toNavigationTest(View view) {
-        startActivity(new Intent(MenuForTest.this, Main2Activity.class));
+        startActivity(new Intent(MenuForTest.this, MainActivity.class));
     }
 
 }

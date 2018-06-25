@@ -48,11 +48,11 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".for_test.MenuForTest" />
+        <activity android:name=".ui.fragment.ChatActivity" />
         <activity
-            android:name=".ui.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.fragment.ChatActivity"></activity>
+            android:name=".ui.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
