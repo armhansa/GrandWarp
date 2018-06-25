@@ -57,7 +57,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     private void login() {
-//        startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+        Toast.makeText(this, user.getPhoneNumber(), Toast.LENGTH_LONG).show();
         startActivity(new Intent(AuthenticationActivity.this, MenuForTest.class));
         finish();
     }
