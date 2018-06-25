@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.armhansa.app.grandwarp.R;
-import com.armhansa.app.grandwarp.model.Chat;
+import com.armhansa.app.grandwarp.model.Message;
 
 import java.util.ArrayList;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
-    private ArrayList<Chat> mDataset;
+    private ArrayList<Message> mDataset;
 
-    public ChatAdapter(ArrayList<Chat> mDataset) {
+    public ChatAdapter(ArrayList<Message> mDataset) {
         this.mDataset = mDataset;
     }
 
@@ -40,16 +40,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return mDataset.size();
     }
 
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView sender;
+        TextView message;
 
-        public TextView sender;
-        public TextView message;
-
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             sender = itemView.findViewById(R.id.sender);
             message = itemView.findViewById(R.id.message);
         }
     }
+
 }

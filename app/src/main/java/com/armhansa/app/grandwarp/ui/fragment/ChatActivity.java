@@ -6,7 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.armhansa.app.grandwarp.R;
+import com.armhansa.app.grandwarp.model.Message;
 import com.armhansa.app.grandwarp.recycler.ChatAdapter;
+
+import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -28,8 +31,11 @@ public class ChatActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        // Repeat with get Data
+        ArrayList<Message> message = new ArrayList<>();
+
         // specify an adapter (see also next example)
-        mAdapter = new ChatAdapter(myDataset);
+        mAdapter = new ChatAdapter(message);
         mRecyclerView.setAdapter(mAdapter);
     }
 }
