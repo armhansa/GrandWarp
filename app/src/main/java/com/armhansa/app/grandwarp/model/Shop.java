@@ -1,5 +1,7 @@
 package com.armhansa.app.grandwarp.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 public class Shop {
@@ -10,7 +12,7 @@ public class Shop {
     private String status;  // On - Off - Off in 10min
     private String describe;
     private ArrayList<String> pictures;
-    private Location location;
+    private LatLng location;
     private ArrayList<Event> events;
 //   private ArrayList<Promotion> promotions;
     private ArrayList<String> ownerIDs;

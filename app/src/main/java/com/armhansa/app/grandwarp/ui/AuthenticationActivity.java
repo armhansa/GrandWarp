@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.armhansa.app.grandwarp.R;
+import com.armhansa.app.grandwarp.for_test.MenuForTest;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,7 +57,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     private void login() {
-        startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+//        startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+        startActivity(new Intent(AuthenticationActivity.this, MenuForTest.class));
         finish();
     }
 
