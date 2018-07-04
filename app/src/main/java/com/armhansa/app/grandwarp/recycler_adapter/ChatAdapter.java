@@ -1,4 +1,4 @@
-package com.armhansa.app.grandwarp.recycler;
+package com.armhansa.app.grandwarp.recycler_adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.armhansa.app.grandwarp.R;
-import com.armhansa.app.grandwarp.model.Message;
+import com.armhansa.app.grandwarp.model.nice_to_have.Message;
 
 import java.util.ArrayList;
 

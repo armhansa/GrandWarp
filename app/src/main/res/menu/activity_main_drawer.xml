@@ -13,6 +13,10 @@
             android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_menu_manage"
             android:title="Favorites" />
+        <item
+            android:id="@+id/nav_shop"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="UShops"/>
         <!--<item-->
             <!--android:id="@+id/nav_camera"-->
             <!--android:icon="@drawable/ic_menu_camera"-->
@@ -41,6 +45,15 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
+        </menu>
+    </item>
+
+    <item android:title="Setting">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_share"
+                android:title="LogOut" />
         </menu>
     </item>
 

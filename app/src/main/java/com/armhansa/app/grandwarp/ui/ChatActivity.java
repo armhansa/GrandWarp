@@ -1,4 +1,4 @@
-package com.armhansa.app.grandwarp.ui.fragment;
+package com.armhansa.app.grandwarp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.armhansa.app.grandwarp.R;
-import com.armhansa.app.grandwarp.model.Message;
-import com.armhansa.app.grandwarp.recycler.ChatAdapter;
+import com.armhansa.app.grandwarp.model.nice_to_have.Message;
+import com.armhansa.app.grandwarp.recycler_adapter.ChatAdapter;
 
 import java.util.ArrayList;
 

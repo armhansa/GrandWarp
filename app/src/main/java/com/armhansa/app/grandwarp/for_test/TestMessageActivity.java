@@ -1,4 +1,4 @@
-package com.armhansa.app.grandwarp.ui;
+package com.armhansa.app.grandwarp.for_test;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.armhansa.app.grandwarp.R;
+import com.armhansa.app.grandwarp.ui.AuthenticationActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -1,20 +1,70 @@
 package com.armhansa.app.grandwarp.model;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.ArrayList;
-
 public class Shop {
 
-    private String id;
     private String name;
     private String type;
     private String status;  // On - Off - Off in 10min
     private String describe;
-    private ArrayList<String> pictures;
+    private String picture;
     private LatLng location;
-    private ArrayList<Event> events;
-//   private ArrayList<Promotion> promotions;
-    private ArrayList<String> ownerIDs;
+    private String openTime;
+    private String closeTime;
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
+    }
 
 }

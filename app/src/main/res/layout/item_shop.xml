@@ -5,6 +5,7 @@
     android:padding="15dp">
 
     <ImageView
+        android:id="@+id/shopImg"
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:src="@drawable/ic_launcher_foreground"/>
@@ -15,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/nameTxt"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="ShopName"
@@ -23,14 +25,16 @@
             android:gravity="center"/>
 
         <TextView
+            android:id="@+id/timeTxt"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:text="11.00 AM - 02.00 AM"
             android:gravity="center"/>
 
         <TextView
+            android:id="@+id/statusTxt"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:text="Open"
             android:textSize="25sp"
             android:textColor="#0F0"

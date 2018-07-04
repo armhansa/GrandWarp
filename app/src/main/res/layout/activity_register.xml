@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RegisterActivity"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="CREATE PROFILE"
+        android:textSize="30sp"
+        android:textColor="#000"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/profileImg"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_menu_gallery"
+        android:layout_gravity="center"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/usernameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="USERNAME"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/phoneNumberTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="PHONE NUMBER"
+            android:inputType="phone"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/describeTxt"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:hint="DESCRIPTION" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:text="Register"
+        android:textSize="25sp"/>
+
+</LinearLayout>

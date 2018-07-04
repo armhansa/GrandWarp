@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="180dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/shopImg"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="ShopName"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/timeTxt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="10.00 AM - 02.00 AM"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/statusTxt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Open"
+                android:textSize="25sp"
+                android:textColor="#0F0"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/chatTxt"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="0"
+        android:textSize="35sp"
+        android:textColor="#F00"
+        android:gravity="center"/>
+
+</android.support.constraint.ConstraintLayout>

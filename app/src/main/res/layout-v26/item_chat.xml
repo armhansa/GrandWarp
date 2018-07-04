@@ -12,7 +12,7 @@
         android:src="@drawable/ic_launcher_foreground"/>
 
     <TextView
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="match_parent" />
 
     <LinearLayout
@@ -36,7 +36,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="You: Hello World!"
+                android:text="You:  "
+                android:textSize="20sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Hello World!"
                 android:textSize="20sp"
                 android:gravity="center"/>
 

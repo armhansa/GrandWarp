@@ -11,15 +11,23 @@
         android:id="@+id/toNavigationBtn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="Navigation Activity"
+        android:text="Main"
         android:textSize="25sp"
         android:onClick="toNavigationTest"/>
+
+    <Button
+        android:id="@+id/toChatActivity"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Test"
+        android:textSize="25sp"
+        android:onClick="toTest"/>
 
     <Button
         android:id="@+id/toMessageTestBtn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="Message Activity"
+        android:text="Message"
         android:textSize="25sp"
         android:onClick="toMessageTest"/>
 

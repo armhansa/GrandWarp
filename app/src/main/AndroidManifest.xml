@@ -17,6 +17,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="22" />
+    <!-- Add to get current location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.CreateShopActivity" />
-        <activity android:name=".ui.TestMessageActivity" />
+        <activity android:name=".for_test.TestMessageActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -48,11 +50,16 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".for_test.MenuForTest" />
-        <activity android:name=".ui.fragment.ChatActivity" />
+        <activity android:name=".ui.ChatActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.ChatsActivity" />
+        <activity android:name=".ui.ShopDetailActivity" />
+        <activity android:name=".ui.UpdateShopStatusActivity" />
+        <activity android:name=".for_test.TestActivity" />
+        <activity android:name=".ui.RegisterActivity"></activity>
     </application>
 
 </manifest>

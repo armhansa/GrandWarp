@@ -1,43 +1,38 @@
 package com.armhansa.app.grandwarp.model;
 
-import java.util.ArrayList;
+import com.google.firebase.database.Exclude;
 
 public class User {
 
-    private String id;
-    private String name;
-    private String tel;
-    private String status;
+    @Exclude
+    private static User userInstance;
+
+    private String username;
+    private String phoneNumber;
     private String profile;
-    private ArrayList<String> shops;
-//    private ArrayList<String> following;
+    private String description;
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
+    private User() {}
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
+    public static User getInstance() {
+        if(userInstance == null) {
+            userInstance = new User();
+        }
+        return userInstance;
     }
 
-    public String getTel() {
-        return tel;
+    public String getUsername() {
+        return username;
     }
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getProfile() {
@@ -47,11 +42,11 @@ public class User {
         this.profile = profile;
     }
 
-    public ArrayList<String> getShops() {
-        return shops;
+    public String getDescription() {
+        return description;
     }
-    public void setShops(ArrayList<String> shops) {
-        this.shops = shops;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
