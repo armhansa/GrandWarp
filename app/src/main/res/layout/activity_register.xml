@@ -19,15 +19,16 @@
         android:id="@+id/profileImg"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/ic_menu_gallery"
-        android:layout_gravity="center"/>
+        android:src="@drawable/ic_person_outline"
+        android:layout_gravity="center"
+        android:background="#AAA"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp">
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/usernameTxt"
+            android:id="@+id/nameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="USERNAME"/>

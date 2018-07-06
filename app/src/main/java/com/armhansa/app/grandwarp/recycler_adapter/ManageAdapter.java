@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.armhansa.app.grandwarp.R;
 import com.armhansa.app.grandwarp.model.ManageShop;
+import com.armhansa.app.grandwarp.model.Shop;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder> {
 
-    private ArrayList<ManageShop> manageShops;
+    private ArrayList<Shop> shops;
     private Context context;
 
     private RequestOptions mOption;
@@ -29,10 +30,10 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
     }
     private ChatListener listener;
 
-    public ManageAdapter(ArrayList<ManageShop> manageShops
+    public ManageAdapter(ArrayList<Shop> shops
             , Context context
             , ChatListener listener) {
-        this.manageShops = manageShops;
+        this.shops = shops;
         this.context = context;
         this.listener = listener;
     }
@@ -64,25 +65,25 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClickInItem(manageShops.get(position).getName());
+                listener.onClickInItem(shops.get(position).getName());
             }
         });
 
-        String picture = manageShops.get(getItemCount()-position-1).getPicture();
+        String picture = shops.get(getItemCount()-position-1).getPicture();
         if(!picture.equals("default")) {
             Glide.with(context)
-                    .load(manageShops.get(getItemCount()-position-1).getPicture())
+                    .load(shops.get(getItemCount()-position-1).getPicture())
                     .apply(mOption)
                     .into(shopImg);
         }
 
-        nameTxt.setText(manageShops.get(getItemCount()-position-1).getName());
+        nameTxt.setText(shops.get(getItemCount()-position-1).getName());
 
         timeTxt.setText(String.format("%s - %s"
-                , manageShops.get(getItemCount()-position-1).getOpenTime()
-                , manageShops.get(getItemCount()-position-1).getCloseTime()));
+                , shops.get(getItemCount()-position-1).getOpenTime()
+                , shops.get(getItemCount()-position-1).getCloseTime()));
 
-        String status = manageShops.get(getItemCount()-position-1).getStatus();
+        String status = shops.get(getItemCount()-position-1).getStatus();
         switch (status) {
             case "open":
                 statusTxt.setTextColor(Color.GREEN);
@@ -93,13 +94,13 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
         }
         statusTxt.setText(status);
 
-        chatTxt.setText(String.valueOf(manageShops.get(position).getChatNotSeen()));
+        chatTxt.setText(String.valueOf(shops.get(position).getChatNotSeen()));
 
     }
 
     @Override
     public int getItemCount() {
-        return manageShops.size();
+        return shops.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

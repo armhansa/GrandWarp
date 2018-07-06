@@ -10,6 +10,7 @@ public class Shop {
     private LatLng location;
     private String openTime;
     private String closeTime;
+    private int chatNotSeen;
 
     public String getName() {
         return name;
@@ -65,6 +66,13 @@ public class Shop {
     }
     public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public int getChatNotSeen() {
+        return chatNotSeen;
+    }
+    public void setChatNotSeen(int chatNotSeen) {
+        this.chatNotSeen = chatNotSeen;
     }
 
 }

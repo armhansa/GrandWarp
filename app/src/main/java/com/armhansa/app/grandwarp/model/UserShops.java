@@ -27,12 +27,17 @@ public class UserShops {
         return shops.get(index);
     }
 
-    public void addShop(Shop shop) {
+    public void add(Shop shop) {
         shops.add(shop);
     }
-
-    public void deleteShop(Shop shop) {
+    public void delete(Shop shop) {
         shops.remove(shop);
+    }
+    public int size() {
+        return shops.size();
+    }
+    public void clear() {
+        shops.clear();
     }
 
 }
