@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
         String phoneNumber = phoneNumberTxt.getText().toString();
         String description = descriptionTxt.getText().toString();
         if(PatternValidation.isNameValid(name, this)
-                && PatternValidation.isPhoneNumber(phoneNumber, this)) {
+                && PatternValidation.isPhoneNumberValid(phoneNumber, this)) {
             currentUser.setName(name);
             currentUser.setPhoneNumber(phoneNumber);
             currentUser.setDescription(description);
