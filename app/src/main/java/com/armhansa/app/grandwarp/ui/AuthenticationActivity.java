@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.armhansa.app.grandwarp.R;
+import com.armhansa.app.grandwarp.database.ShopDatabase;
 import com.armhansa.app.grandwarp.model.Shop;
 import com.armhansa.app.grandwarp.model.User;
 import com.armhansa.app.grandwarp.model.UserShops;
@@ -75,17 +76,24 @@ public class AuthenticationActivity extends AppCompatActivity {
     private void checkSignInStatus() {
         if(mUser == null) {
             startLoginProvider();
+            Log.d(TAG, "checkSignInStatus: User is null");
         } else {
             mDatabaseRef.child("users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "onDataChange: ");
                     User tmpUser = dataSnapshot.getValue(User.class);
                     if(tmpUser != null) {
                         // Set User from FirebaseDatabase to User Singleton
                         User.setInstance(tmpUser);
 
+                        Log.d(TAG, "onDataChange: has user in db");
+
                         getShopOwners();
                     } else {
+
+                        Log.d(TAG, "onDataChange: hasn't user in db");
+
                         startRegister();
                     }
                 }
@@ -94,6 +102,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(AuthenticationActivity.this
                             , "Get UserRegistered Fail. Try again.", Toast.LENGTH_LONG).show();
+
+                    Log.d(TAG, "onCancelled: ");
                     checkSignInStatus();
                 }
             });
@@ -108,10 +118,11 @@ public class AuthenticationActivity extends AppCompatActivity {
                         .setAvailableProviders(providers)
                         .build()
                 , RC_LOGIN);
+        Log.d(TAG, "startLoginProvider: ");
     }
 
     private void startRegister() {
-        Log.d(TAG, "register: ");
+        Log.d(TAG, "startRegister: ");
 
         User currentUser = User.getInstance();
         currentUser.setProviderData(mUser);
@@ -129,11 +140,12 @@ public class AuthenticationActivity extends AppCompatActivity {
         Log.d(TAG, "------------------------------------------------");
         Log.d(TAG, "*UserAnotherTest: "+currentUser.getName()+"    *");
         Log.d(TAG, "------------------------------------------------");
-
-        mDatabaseRef.child("shopOwners").child(currentUser.getUserID()).addListenerForSingleValueEvent(LISTENER);
+        ShopDatabase shopDB = new ShopDatabase();
+        shopDB.getOnceManageShop(currentUser.getUserID(), LISTENER);
     }
 
     private void prepareAndLogin(DataSnapshot dataSnapshot) {
+        Log.d(TAG, "prepareAndLogin: ");
         Iterator<DataSnapshot> dataSnapshotsManage = dataSnapshot.getChildren().iterator();
 
         UserShops userShops = UserShops.getInstance();
@@ -147,6 +159,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     private void createAlertDialog() {
+        Log.d(TAG, "createAlertDialog: ");
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(AuthenticationActivity.this);
         builder.setMessage("We can not prepare the values.\nPlease make sure you are have the internet.");

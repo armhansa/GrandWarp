@@ -128,9 +128,10 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
     private void updateRecycler() {
         mRecyclerView.setVisibility(View.INVISIBLE);
         alert.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.INVISIBLE);
         waitingTxt.setVisibility(View.VISIBLE);
 
-        mShopDatabase.getOnceManageShop(FirebaseAuth.getInstance().getUid(), LISTENER);
+        mShopDatabase.getOnceManageShop(currentUser.getUserID(), LISTENER);
 
         mSwipeRefresh.setRefreshing(false);
     }
@@ -152,6 +153,8 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
             // specify an adapter (see also next example)
             mAdapter = new ManageAdapter(shops.getShops(), getContext(), ManageShopFragment.this);
             mRecyclerView.setAdapter(mAdapter);
+
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
         fab.setVisibility(View.VISIBLE);
         waitingTxt.setVisibility(View.INVISIBLE);

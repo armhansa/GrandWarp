@@ -18,12 +18,12 @@ public class ShopDatabase {
         mRef.child("shops").orderByChild("status").addListenerForSingleValueEvent(listener);
     }
 
-    public void getOnceManageShop(String username, ValueEventListener listener) {
-        mRef.child("shopOwners").child(username).addListenerForSingleValueEvent(listener);
+    public void getOnceManageShop(String uId, ValueEventListener listener) {
+        mRef.child("shopOwners").child(uId).addListenerForSingleValueEvent(listener);
     }
 
-    public void getOnceFavoriteShop(String username, ValueEventListener listener) {
-        mRef.child("favorites").child(username).addListenerForSingleValueEvent(listener);
+    public void getOnceFavoriteShop(String uId, ValueEventListener listener) {
+        mRef.child("favorites").child(uId).addListenerForSingleValueEvent(listener);
     }
 
 }

@@ -63,7 +63,7 @@ public class User {
         return phoneNumber;
     }
     public void setPhoneNumber(String phoneNumber) {
-        if(phoneNumber.length() != 10) {
+        if(phoneNumber.length() > 10) {
             int length = phoneNumber.length();
             phoneNumber = phoneNumber.substring(length-9, length);
             phoneNumber = "0"+phoneNumber;

@@ -65,17 +65,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         currentUser = User.getInstance();
 
-        viewInitial();
-
-        // Firebase
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-
         // Glide Settings
         mOption = new RequestOptions()
                 .centerCrop()
                 .fitCenter()
                 .circleCrop();
+
+        viewInitial();
+
+        // Firebase
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
     }
 
@@ -85,8 +85,9 @@ public class RegisterActivity extends AppCompatActivity {
         String phoneNumber = currentUser.getPhoneNumber();
 
         profileImg = findViewById(R.id.profileImg);
-        if(profile != null)
-            Glide.with(this).load(profile).apply(mOption).into(profileImg);
+        if(profile != null && !profile.isEmpty())
+            Log.d(TAG, "viewInitial: "+profile);
+            Glide.with(this).load(profile+"?height=500").into(profileImg);
         nameTxt = findViewById(R.id.nameTxt);
         if(name != null)
             nameTxt.setText(name);

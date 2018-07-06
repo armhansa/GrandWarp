@@ -11,7 +11,7 @@ import static java.lang.Integer.parseInt;
 public class PatternValidation {
 
     public static boolean isNameValid(String name, Context context) {
-        String expression = "[A-Z0-9ก-ฮ]{2,20}";
+        String expression = "[A-Z0-9ก-์ -]{2,20}";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(name);
         if(!matcher.matches()) Toast.makeText(context, "Name is invalid! (2 - 20 chars).", Toast.LENGTH_LONG).show();
