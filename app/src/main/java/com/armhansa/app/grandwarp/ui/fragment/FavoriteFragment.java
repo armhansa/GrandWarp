@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.armhansa.app.grandwarp.R;
 import com.armhansa.app.grandwarp.model.Shop;
 import com.armhansa.app.grandwarp.database.ShopDatabase;
+import com.armhansa.app.grandwarp.model.holder.FavShops;
+import com.armhansa.app.grandwarp.model.holder.User;
 import com.armhansa.app.grandwarp.recycler_adapter.FavoriteAdapter;
 import com.armhansa.app.grandwarp.ui.ShopDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,34 +33,30 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.ChatLi
 
     private static final String TAG = "FavoriteFragment";
 
+    // RecyclerView
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private ArrayList<Shop> favShops;
-    private ShopDatabase shopDatabase;
+    // Getter shop
+    private ShopDatabase mShopDatabase;
+    private FavShops favShops;
 
+    // View
     private TextView waitingTxt;
-
     private SwipeRefreshLayout mSwipeRefresh;
+
+    // User
+    private User currentUser;
+
+    // RequestCode for OnActivityResults()
+    private final int VIEW_DETAILS = 36;
 
     private final ValueEventListener LISTENER =
             new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.d(TAG, "onDataChange: ");
-                    Iterator<DataSnapshot> dataSnapshotsFav = dataSnapshot.getChildren().iterator();
-                    favShops = new ArrayList<>();
-                    while(dataSnapshotsFav.hasNext()) {
-                        DataSnapshot dataSnapshotChild = dataSnapshotsFav.next();
-                        favShops.add(dataSnapshotChild.getValue(Shop.class));
-                    }
-
-                    // specify an adapter (see also next example)
-                    mAdapter = new FavoriteAdapter(favShops, getContext(), FavoriteFragment.this);
-                    mRecyclerView.setAdapter(mAdapter);
-
-                    waitingTxt.setVisibility(View.GONE);
+                    prepareAndUpdate(dataSnapshot);
                 }
 
                 @Override
@@ -78,6 +76,33 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.ChatLi
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_favorite, container, false);
 
+        initialView(rootView);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        favShops = FavShops.getInstance();
+
+        if(favShops.size() > 0) {
+            // specify an adapter (see also next example)
+            mAdapter = new FavoriteAdapter(favShops.getShops(), getContext(), FavoriteFragment.this);
+            mRecyclerView.setAdapter(mAdapter);
+
+            waitingTxt.setVisibility(View.INVISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            waitingTxt.setText("Not Have now.");
+        }
+
+        mShopDatabase = new ShopDatabase();
+
+        currentUser = User.getInstance();
+
+        return rootView;
+    }
+
+    private void initialView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.recycler_favorite);
 
         waitingTxt = rootView.findViewById(R.id.waitingTxt);
@@ -86,25 +111,59 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.ChatLi
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                shopDatabase = new ShopDatabase();
-                shopDatabase.getOnceAllShops(LISTENER);
-
-                mSwipeRefresh.setRefreshing(false);
+                updateRecycler();
             }
         });
+    }
 
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+    private void updateRecycler() {
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        waitingTxt.setText(R.string.wait_a_minutes);
+        waitingTxt.setVisibility(View.VISIBLE);
 
-        shopDatabase = new ShopDatabase();
-        shopDatabase.getOnceFavoriteShop(FirebaseAuth.getInstance().getUid(), LISTENER);
+        mShopDatabase.getOnceFavoriteShop(currentUser.getUserID(), LISTENER); // success goto prepareAndUpdate()
 
-        return rootView;
+        mSwipeRefresh.setRefreshing(false);
+    }
+
+
+    private void prepareAndUpdate(DataSnapshot dataSnapshot) {
+        Iterator<DataSnapshot> dataSnapshotsFavorite = dataSnapshot.getChildren().iterator();
+
+        favShops.clear();
+        while(dataSnapshotsFavorite.hasNext()) {
+            DataSnapshot dataSnapshotChild = dataSnapshotsFavorite.next();
+            favShops.add(dataSnapshotChild.getValue(Shop.class));
+        }
+
+        if(favShops.size() == 0) {
+            waitingTxt.setText("Not Have now.");
+        } else {
+            // specify an adapter (see also next example)
+            mAdapter = new FavoriteAdapter(favShops.getShops(), getContext(), FavoriteFragment.this);
+            mRecyclerView.setAdapter(mAdapter);
+
+            mRecyclerView.setVisibility(View.VISIBLE);
+            waitingTxt.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
     public void onClickInItem(String shopName) {
-        startActivity(new Intent(getActivity(), ShopDetailActivity.class));
+        // Set Data to new Activity
+
+
+
+
+        startActivityForResult(new Intent(getActivity(), ShopDetailActivity.class), VIEW_DETAILS);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == VIEW_DETAILS) {
+            updateRecycler();
+        }
     }
 }

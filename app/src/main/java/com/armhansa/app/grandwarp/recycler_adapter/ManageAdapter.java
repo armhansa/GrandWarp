@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.armhansa.app.grandwarp.R;
-import com.armhansa.app.grandwarp.model.ManageShop;
 import com.armhansa.app.grandwarp.model.Shop;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,7 +25,7 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
     private RequestOptions mOption;
 
     public interface ChatListener {
-        void onClickInItem(String shopName);
+        void onClickInItem(int index);
     }
     private ChatListener listener;
 
@@ -65,7 +64,7 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClickInItem(shops.get(position).getName());
+                listener.onClickInItem(position);
             }
         });
 

@@ -18,14 +18,12 @@ import android.widget.Toast;
 
 import com.armhansa.app.grandwarp.R;
 import com.armhansa.app.grandwarp.database.ShopDatabase;
-import com.armhansa.app.grandwarp.model.ManageShop;
 import com.armhansa.app.grandwarp.model.Shop;
-import com.armhansa.app.grandwarp.model.User;
-import com.armhansa.app.grandwarp.model.UserShops;
+import com.armhansa.app.grandwarp.model.holder.User;
+import com.armhansa.app.grandwarp.model.holder.UserShops;
 import com.armhansa.app.grandwarp.recycler_adapter.ManageAdapter;
 import com.armhansa.app.grandwarp.ui.CreateShopActivity;
 import com.armhansa.app.grandwarp.ui.UpdateShopStatusActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -41,7 +39,7 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    // getter Shops
+    // Getter Shops
     private ShopDatabase mShopDatabase;
     private UserShops shops;
 
@@ -53,6 +51,10 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
 
     // User
     private User currentUser;
+
+    // RequestCode for OnActivityResults()
+    private final int CREATE_SHOP = 12;
+    private final int UPDATE_SHOP = 24;
 
     private final ValueEventListener LISTENER =
             new ValueEventListener() {
@@ -86,13 +88,17 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
 
         shops = UserShops.getInstance();
 
-        if(shops.size() != 0) {
+        if(shops.size() > 0) {
+            // specify an adapter (see also next example)
             mAdapter = new ManageAdapter(shops.getShops(), getContext(), ManageShopFragment.this);
             mRecyclerView.setAdapter(mAdapter);
+
         } else {
             mRecyclerView.setVisibility(View.INVISIBLE);
             alert.setVisibility(View.VISIBLE);
         }
+        waitingTxt.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.VISIBLE);
 
         mShopDatabase = new ShopDatabase();
 
@@ -111,7 +117,7 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), CreateShopActivity.class), 34);
+                startActivityForResult(new Intent(getActivity(), CreateShopActivity.class), CREATE_SHOP);
             }
         });
 
@@ -162,19 +168,19 @@ public class ManageShopFragment extends Fragment implements ManageAdapter.ChatLi
     }
 
     @Override
-    public void onClickInItem(String shopName) {
+    public void onClickInItem(int index) {
         // Set Data to new Activity
+        Intent updateShop = new Intent(getActivity(), UpdateShopStatusActivity.class);
+        updateShop.putExtra("shopIndex", index);
 
-
-
-        startActivity(new Intent(getActivity(), UpdateShopStatusActivity.class));
+        startActivityForResult(updateShop, UPDATE_SHOP);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 34) {
+        if(requestCode == CREATE_SHOP || requestCode == UPDATE_SHOP) {
             updateRecycler();
         }
     }

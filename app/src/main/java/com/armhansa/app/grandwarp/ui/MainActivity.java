@@ -1,5 +1,7 @@
 package com.armhansa.app.grandwarp.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -70,7 +72,22 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            AlertDialog.Builder builder =
+                    new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Are you want to Exit?");
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
         }
     }
 
@@ -107,4 +124,5 @@ public class MainActivity extends AppCompatActivity
     public void toChatsActivity(View view) {
         startActivity(new Intent(MainActivity.this, ChatsActivity.class));
     }
+
 }

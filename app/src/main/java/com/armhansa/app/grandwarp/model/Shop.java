@@ -2,6 +2,7 @@ package com.armhansa.app.grandwarp.model;
 
 public class Shop {
 
+    private int key;
     private String name;
     private String type;
     private String status;  // On - Off - Off in 10min
@@ -11,6 +12,13 @@ public class Shop {
     private String openTime;
     private String closeTime;
     private int chatNotSeen;
+
+    public int getKey() {
+        return key;
+    }
+    public void setKey(int key) {
+        this.key = key;
+    }
 
     public String getName() {
         return name;

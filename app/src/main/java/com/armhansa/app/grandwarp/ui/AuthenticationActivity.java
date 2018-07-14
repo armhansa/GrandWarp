@@ -1,6 +1,7 @@
 package com.armhansa.app.grandwarp.ui;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -13,8 +14,9 @@ import android.widget.Toast;
 import com.armhansa.app.grandwarp.R;
 import com.armhansa.app.grandwarp.database.ShopDatabase;
 import com.armhansa.app.grandwarp.model.Shop;
-import com.armhansa.app.grandwarp.model.User;
-import com.armhansa.app.grandwarp.model.UserShops;
+import com.armhansa.app.grandwarp.model.holder.FavShops;
+import com.armhansa.app.grandwarp.model.holder.User;
+import com.armhansa.app.grandwarp.model.holder.UserShops;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,10 +45,26 @@ public class AuthenticationActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private DatabaseReference mDatabaseRef;
 
-    private final ValueEventListener LISTENER = new ValueEventListener() {
+    // For show processing
+    private ProgressDialog progress;
+    private int readyUse;
+
+    // Listener for Download data from database
+    private final ValueEventListener USER_LISTENER = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            prepareAndLogin(dataSnapshot);
+            getUserShops(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            createAlertDialog();
+        }
+    };
+    private final ValueEventListener FAV_LISTENER = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            getFavoriteShops(dataSnapshot);
         }
 
         @Override
@@ -71,6 +89,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             }
         }, 500);
 
+        readyUse = 0;
     }
 
     private void checkSignInStatus() {
@@ -137,15 +156,21 @@ public class AuthenticationActivity extends AppCompatActivity {
         User currentUser = User.getInstance();
         currentUser.setUserID(mUser.getUid());
 
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         Log.d(TAG, "------------------------------------------------");
         Log.d(TAG, "*UserAnotherTest: "+currentUser.getName()+"    *");
         Log.d(TAG, "------------------------------------------------");
         ShopDatabase shopDB = new ShopDatabase();
-        shopDB.getOnceManageShop(currentUser.getUserID(), LISTENER);
+        shopDB.getOnceManageShop(currentUser.getUserID(), USER_LISTENER);
+        shopDB.getOnceFavoriteShop(currentUser.getUserID(), FAV_LISTENER);
     }
 
-    private void prepareAndLogin(DataSnapshot dataSnapshot) {
-        Log.d(TAG, "prepareAndLogin: ");
+    private void getUserShops(DataSnapshot dataSnapshot) {
         Iterator<DataSnapshot> dataSnapshotsManage = dataSnapshot.getChildren().iterator();
 
         UserShops userShops = UserShops.getInstance();
@@ -154,11 +179,35 @@ public class AuthenticationActivity extends AppCompatActivity {
             userShops.add(dataSnapshotChild.getValue(Shop.class));
         }
 
-        startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
-        finish();
+        progress.dismiss();
+
+        checkPreparedToLogin();
+    }
+
+    private void getFavoriteShops(DataSnapshot dataSnapshot) {
+        Iterator<DataSnapshot> dataSnapshotsManage = dataSnapshot.getChildren().iterator();
+
+        FavShops favShops = FavShops.getInstance();
+        while(dataSnapshotsManage.hasNext()) {
+            DataSnapshot dataSnapshotChild = dataSnapshotsManage.next();
+            favShops.add(dataSnapshotChild.getValue(Shop.class));
+        }
+
+        progress.dismiss();
+
+        checkPreparedToLogin();
+    }
+
+    private void checkPreparedToLogin() {
+        if(++readyUse == 2) {
+            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     private void createAlertDialog() {
+        progress.dismiss();
+
         Log.d(TAG, "createAlertDialog: ");
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(AuthenticationActivity.this);
@@ -187,6 +236,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
             if(resultCode == RESULT_OK) {
                 // Successfully signed in
+                mUser = FirebaseAuth.getInstance().getCurrentUser();
                 getShopOwners();
             } else {
                 // Sign in failed. If response is null the user canceled the

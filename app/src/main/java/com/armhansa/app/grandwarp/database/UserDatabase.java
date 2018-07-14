@@ -1,6 +1,6 @@
 package com.armhansa.app.grandwarp.database;
 
-import com.armhansa.app.grandwarp.model.User;
+import com.armhansa.app.grandwarp.model.holder.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;

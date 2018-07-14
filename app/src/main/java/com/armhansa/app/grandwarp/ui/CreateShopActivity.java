@@ -23,10 +23,9 @@ import android.widget.Toast;
 
 import com.armhansa.app.grandwarp.R;
 import com.armhansa.app.grandwarp.model.LatLng;
-import com.armhansa.app.grandwarp.model.ManageShop;
 import com.armhansa.app.grandwarp.model.Shop;
-import com.armhansa.app.grandwarp.model.User;
-import com.armhansa.app.grandwarp.model.UserShops;
+import com.armhansa.app.grandwarp.model.holder.User;
+import com.armhansa.app.grandwarp.model.holder.UserShops;
 import com.armhansa.app.grandwarp.validate.PatternValidation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -183,6 +182,8 @@ public class CreateShopActivity extends AppCompatActivity {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
                 return;
             }
             mFusedLocationClient.getLastLocation()

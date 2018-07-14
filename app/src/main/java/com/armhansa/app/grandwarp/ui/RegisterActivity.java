@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.armhansa.app.grandwarp.R;
-import com.armhansa.app.grandwarp.model.User;
+import com.armhansa.app.grandwarp.model.holder.User;
 import com.armhansa.app.grandwarp.validate.PatternValidation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
